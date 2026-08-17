@@ -14,7 +14,7 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-8">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold to-gold-mid flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/img/firm_logo.jpeg" 
+                  src="/RKASAIJA/assets/img/firm_logo.jpeg" 
                   alt="Logo" 
                   loading="eager"
                   width="48"
@@ -22,7 +22,7 @@ const Footer = () => {
                   className="w-full h-full object-cover rounded-full"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = '/assets/img/remove.png';
+                    e.target.src = '/RKASAIJA/assets/img/remove.png';
                   }}
                 />
               </div>

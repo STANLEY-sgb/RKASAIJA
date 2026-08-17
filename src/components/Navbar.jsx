@@ -40,7 +40,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-11 h-11 bg-dark rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
               <img 
-                src="/assets/img/firm_logo.jpeg" 
+                src="/RKASAIJA/assets/img/firm_logo.jpeg" 
                 alt="R. Kasaija & Partners Logo" 
                 loading="eager"
                 width="44"
@@ -48,7 +48,7 @@ const Navbar = () => {
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = '/assets/img/remove.png';
+                  e.target.src = '/RKASAIJA/assets/img/remove.png';
                 }}
               />
             </div>

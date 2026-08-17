@@ -36,7 +36,7 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
     <section id="hero" className="relative min-h-screen bg-[#060301] overflow-hidden flex flex-col justify-center">
       {/* Background Image with Ken Burns */}
       <motion.img 
-        src="/assets/img/law_firm_team.jpeg" 
+        src="/RKASAIJA/assets/img/law_firm_team.jpeg" 
         className="absolute inset-0 w-full h-full object-cover object-top opacity-0"
         initial={{ opacity: 0, scale: 1 }}
         animate={{ 

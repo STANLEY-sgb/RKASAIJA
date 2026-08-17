@@ -116,7 +116,7 @@ const ChatWidget = () => {
               <div className="relative z-10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#c8a06a] to-[#a07040] shadow-lg relative overflow-hidden">
-                    <img src="/assets/img/firm_logo.jpeg" loading="lazy" width="44" height="44" className="w-full h-full object-cover" alt="Kasaija AI" onError={(e)=>{e.target.onerror=null; e.target.src='/assets/img/remove.png';}} />
+                    <img src="/RKASAIJA/assets/img/firm_logo.jpeg" loading="lazy" width="44" height="44" className="w-full h-full object-cover" alt="Kasaija AI" onError={(e)=>{e.target.onerror=null; e.target.src='/RKASAIJA/assets/img/remove.png';}} />
                     <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#22C55E] border-2 border-dark rounded-full shadow-[0_0_6px_rgba(34,197,94,0.5)]" />
                   </div>
                   <div>
@@ -152,7 +152,7 @@ const ChatWidget = () => {
                 <div key={i} className={`flex gap-2 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {m.role === 'assistant' && (
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c8a06a] to-[#a07040] shrink-0 overflow-hidden self-end mb-4">
-                      <img src="/assets/img/firm_logo.jpeg" loading="lazy" width="28" height="28" className="w-full h-full object-cover" alt="AI" onError={(e)=>{e.target.onerror=null; e.target.src='/assets/img/remove.png';}} />
+                      <img src="/RKASAIJA/assets/img/firm_logo.jpeg" loading="lazy" width="28" height="28" className="w-full h-full object-cover" alt="AI" onError={(e)=>{e.target.onerror=null; e.target.src='/RKASAIJA/assets/img/remove.png';}} />
                     </div>
                   )}
                   <div className={`max-w-[83%] flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
@@ -170,7 +170,7 @@ const ChatWidget = () => {
               {isTyping && (
                 <div className="flex gap-2">
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c8a06a] to-[#a07040] shrink-0 overflow-hidden self-end mb-4">
-                    <img src="/assets/img/firm_logo.jpeg" loading="lazy" width="28" height="28" className="w-full h-full object-cover" alt="AI" onError={(e)=>{e.target.onerror=null; e.target.src='/assets/img/remove.png';}} />
+                    <img src="/RKASAIJA/assets/img/firm_logo.jpeg" loading="lazy" width="28" height="28" className="w-full h-full object-cover" alt="AI" onError={(e)=>{e.target.onerror=null; e.target.src='/RKASAIJA/assets/img/remove.png';}} />
                   </div>
                   <div className="px-4 py-3 bg-white rounded-[16px_16px_16px_4px] border border-gold/10 shadow-sm flex gap-1 items-center h-[38px]">
                     <span className="w-1.5 h-1.5 bg-gold-mid rounded-full animate-bounce [animation-delay:-0.3s]" />
