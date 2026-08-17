@@ -1,0 +1,7 @@
+config.php
+assets/docs/*.pdf
+assets/docs/*.doc
+assets/video/*.mp4
+.DS_Store
+Thumbs.db
+node_modules
