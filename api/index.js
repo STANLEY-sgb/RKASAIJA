@@ -8,10 +8,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const MySQLStore = connectMysqlSession(session);
+let sessionStore;
 
-// Session store configuration
-const sessionStore = new MySQLStore({}, db);
+try {
+  const MySQLStore = connectMysqlSession(session);
+  sessionStore = new MySQLStore({}, db);
+} catch (e) {
+  console.warn('MySQL session store initialization bypassed:', e.message);
+  sessionStore = new session.MemoryStore();
+}
 
 app.use(cors({
   origin: process.env.FRONTEND_URL || '*',
@@ -22,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
   key: 'rkp_session',
-  secret: process.env.SESSION_SECRET || 'kasaija_secret_key_2024',
+  secret: process.env.SESSION_SECRET || 'kasaija_secret_key_2024_secure',
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
@@ -45,13 +50,13 @@ app.use('/api/admin', adminRoutes);
 app.use('/api', chatRoutes);
 
 app.get('/api/health', (req, res) => {
-  res.send('RK&P API is healthy');
+  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
 const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`RK&P API Server running on http://localhost:${PORT}`);
   });
 }
 

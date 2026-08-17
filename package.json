@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "nodemon api/index.js"
+    "server": "nodemon api/index.js",
+    "start": "node api/index.js",
+    "test:email": "node scratch/test_custom_recipient.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
@@ -42,6 +44,7 @@
     "globals": "^17.5.0",
     "nodemon": "^3.1.0",
     "postcss": "^8.5.12",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.2.4",
     "vite": "^8.0.10"
   }

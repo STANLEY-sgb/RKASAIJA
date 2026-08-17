@@ -1,7 +1,8 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const DIRECT_BACKEND_URL = 'http://localhost:5000/api';
 
 export const apiFetch = async (endpoint, options = {}) => {
-  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+  const primaryUrl = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
   
   const defaultOptions = {
     headers: {
@@ -10,14 +11,48 @@ export const apiFetch = async (endpoint, options = {}) => {
     ...options,
   };
 
-  const response = await fetch(url, defaultOptions);
-  
-  if (!response.ok) {
+  try {
+    const response = await fetch(primaryUrl, defaultOptions);
+    
+    // If response is OK and JSON
+    if (response.ok) {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return await response.json();
+      }
+    }
+    
+    // If response was HTML or non-JSON (e.g. proxy missed and returned Vite index.html), try direct backend fallback
+    if (!endpoint.startsWith('http') && API_BASE_URL.startsWith('/')) {
+      const fallbackUrl = `${DIRECT_BACKEND_URL}${endpoint}`;
+      const fallbackRes = await fetch(fallbackUrl, defaultOptions);
+      if (fallbackRes.ok) {
+        return await fallbackRes.json();
+      } else {
+        const errorData = await fallbackRes.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP error! status: ${fallbackRes.status}`);
+      }
+    }
+
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+  } catch (err) {
+    // Retry with direct backend URL if primary relative URL failed due to network error
+    if (!endpoint.startsWith('http') && API_BASE_URL.startsWith('/')) {
+      try {
+        const fallbackUrl = `${DIRECT_BACKEND_URL}${endpoint}`;
+        const fallbackRes = await fetch(fallbackUrl, defaultOptions);
+        if (fallbackRes.ok) {
+          return await fallbackRes.json();
+        }
+        const errorData = await fallbackRes.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP error! status: ${fallbackRes.status}`);
+      } catch (fallbackErr) {
+        throw new Error(fallbackErr.message || err.message);
+      }
+    }
+    throw err;
   }
-  
-  return response.json();
 };
 
 export const streamFetch = async (endpoint, body, onChunk, onDone, onError) => {

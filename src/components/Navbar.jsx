@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Scale, Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles, Calendar, ArrowRight } from 'lucide-react';
+import Logo from './Logo';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,118 +10,237 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent background body scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Practice', path: '/practice' },
-    { name: 'Team', path: '/team' },
-    { name: 'Book', path: '/book' },
+    { name: 'Practice Areas', path: '/practice' },
+    { name: 'Our Team', path: '/team' },
+    { name: 'Book Consultation', path: '/book' },
     { name: 'Contact', path: '/contact' },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
+  const handleOpenChat = () => {
+    setIsMenuOpen(false);
+    window.dispatchEvent(new CustomEvent('open-chat'));
+  };
 
   return (
-    <nav 
-      id="navbar" 
-      className={`fixed top-0 w-full z-50 transition-all duration-400 ${
-        isScrolled 
-          ? 'bg-cream/95 backdrop-blur-xl shadow-[0_2px_40px_-6px_rgba(42,29,16,0.14)] border-b border-gold/20' 
-          : 'bg-cream/88 backdrop-blur-md border-b border-border'
-      }`}
-    >
-      <div className="container-custom py-4 lg:py-5">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 bg-dark rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
-              <img 
-                src="/RKASAIJA/assets/img/firm_logo.jpeg" 
-                alt="R. Kasaija & Partners Logo" 
-                loading="eager"
-                width="44"
-                height="44"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = '/RKASAIJA/assets/img/remove.png';
-                }}
-              />
-            </div>
-            <div className="leading-none">
-              <div className="font-serif text-[17px] text-dark">R. Kasaija <em className="accent">&</em> Partners</div>
-              <div className="font-mono text-[9px] tracking-[0.25em] uppercase opacity-50 mt-1.5">Advocates · Kampala</div>
-            </div>
+    <>
+      <nav 
+        id="navbar" 
+        aria-label="Main Navigation"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-cream/95 backdrop-blur-xl shadow-[0_4px_30px_-6px_rgba(42,29,16,0.12)] border-b border-gold/25 py-2.5' 
+            : 'bg-cream/90 backdrop-blur-md border-b border-gold/15 py-3.5 lg:py-4.5'
+        }`}
+      >
+        <div className="container-custom flex items-center justify-between">
+          {/* Logo */}
+          <Link 
+            to="/" 
+            className="p-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold min-h-[44px] flex items-center"
+            aria-label="R. Kasaija & Partners Advocates Home"
+          >
+            <Logo variant="light" size="md" />
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.path} 
-                to={link.path}
-                className={`text-[13px] relative transition-opacity duration-300 hover:opacity-100 ${
-                  isActive(link.path) ? 'opacity-100 font-medium' : 'opacity-60'
-                } after:content-[''] after:absolute after:left-0 after:bottom-[-3px] after:h-[1.5px] after:bg-gold-mid after:transition-all after:duration-400 ${
-                  isActive(link.path) ? 'after:w-full' : 'after:w-0 hover:after:w-full'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+          {/* Desktop Nav (Large Screens >= 1280px) */}
+          <div className="hidden xl:flex items-center gap-7">
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
+                <Link 
+                  key={link.path} 
+                  to={link.path}
+                  aria-current={active ? 'page' : undefined}
+                  className={`text-[13.5px] relative transition-colors duration-300 py-1.5 font-sans flex items-center gap-1.5 ${
+                    active ? 'text-dark font-semibold' : 'text-dark/75 hover:text-dark'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {active && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block" />
+                  )}
+                  <span 
+                    className={`absolute left-0 bottom-0 h-[2px] bg-gold-mid transition-all duration-300 ${
+                      active ? 'w-full' : 'w-0 hover:w-full'
+                    }`} 
+                  />
+                </Link>
+              );
+            })}
+
+            {/* Primary AI CTA */}
             <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('open-chat'))}
-              className="flex items-center gap-2 pl-4 pr-3 py-2 bg-dark text-cream rounded-full text-[13px] hover:-translate-y-0.5 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_-8px_rgba(42,29,16,0.5)] overflow-hidden group relative"
+              onClick={handleOpenChat}
+              aria-label="Open Kasaija AI Assistant"
+              className="flex items-center gap-2 pl-4 pr-3 py-2 bg-dark text-cream rounded-full text-[13px] font-medium hover:-translate-y-0.5 transition-all duration-300 shadow-md hover:shadow-[0_10px_25px_-8px_rgba(42,29,16,0.5)] cursor-pointer group min-h-[44px]"
             >
-              <div className="w-2 h-2 bg-[#4ADE80] rounded-full animate-[aiPulse_2.4s_ease-in-out_infinite]" />
-              Ask Kasaija AI
-              <div className="w-7 h-7 bg-gold rounded-full flex items-center justify-center ml-1 group-hover:translate-x-0.5 transition-transform">
-                <X className="w-3.5 h-3.5 text-dark rotate-45" />
+              <span className="w-2 h-2 bg-[#4ADE80] rounded-full animate-pulse" />
+              <span>Ask Kasaija AI</span>
+              <div className="w-6 h-6 bg-gold rounded-full flex items-center justify-center ml-1 group-hover:rotate-12 transition-transform duration-300">
+                <Sparkles size={12} className="text-dark" />
               </div>
             </button>
           </div>
 
-          {/* Hamburger */}
-          <button 
-            className="lg:hidden w-10 h-10 bg-dark text-cream rounded-full flex items-center justify-center transition-transform active:scale-95"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div 
-          className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-            isMenuOpen ? 'max-h-[500px] py-6' : 'max-h-0 py-0'
-          } border-t border-border mt-4`}
-        >
-          <div className="flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.path} 
-                to={link.path} 
-                onClick={() => setIsMenuOpen(false)}
-                className="font-serif text-lg py-2.5 text-dark hover:text-gold-mid transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <button 
-              onClick={() => { setIsMenuOpen(false); window.dispatchEvent(new CustomEvent('open-chat')); }}
-              className="flex items-center justify-center gap-2 mt-4 px-4 py-4 bg-dark text-cream rounded-xl text-sm transition-transform active:scale-95"
+          {/* Medium Desktop / Tablet Quick Actions (1024px to 1279px) */}
+          <div className="hidden lg:flex xl:hidden items-center gap-3">
+            <Link 
+              to="/book" 
+              className="btn-outline text-xs px-4 py-2 border-dark text-dark hover:bg-dark hover:text-cream min-h-[44px] flex items-center"
             >
-              Ask Kasaija AI
+              <Calendar size={13} />
+              Book Consultation
+            </Link>
+            <button 
+              onClick={handleOpenChat}
+              className="flex items-center gap-2 px-4 py-2 bg-dark text-cream rounded-full text-xs font-medium min-h-[44px]"
+            >
+              <Sparkles size={13} className="text-gold" />
+              AI Assistant
+            </button>
+            <button 
+              className="w-11 h-11 bg-cream border border-gold/30 text-dark rounded-full flex items-center justify-center transition-transform active:scale-95 ml-1 min-h-[44px] min-w-[44px] cursor-pointer"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+
+          {/* Mobile Header Right Actions (< 1024px) */}
+          <div className="lg:hidden flex items-center gap-2">
+            <Link
+              to="/book"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 bg-gold/20 text-dark border border-gold/40 rounded-full text-xs font-medium min-h-[44px] hover:bg-gold/30 transition-colors"
+            >
+              <Calendar size={13} />
+              <span>Book</span>
+            </Link>
+
+            <button 
+              className="w-11 h-11 min-h-[44px] min-w-[44px] bg-dark text-cream rounded-full flex items-center justify-center transition-transform active:scale-95 shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
+      </nav>
+
+      {/* Fullscreen Mobile Drawer Overlay */}
+      <div 
+        aria-hidden={!isMenuOpen}
+        className={`fixed inset-0 z-40 bg-dark/70 backdrop-blur-md transition-opacity duration-300 lg:hidden ${
+          isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+      />
+
+      {/* Mobile Drawer Panel */}
+      <div 
+        className={`fixed top-0 right-0 bottom-0 w-[88vw] max-w-[400px] z-50 bg-cream border-l border-gold/25 shadow-2xl flex flex-col transition-transform duration-300 ease-out lg:hidden ${
+          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="p-5 border-b border-gold/15 flex items-center justify-between bg-light/50">
+          <div className="flex items-center gap-2">
+            <div className="w-2.5 h-2.5 rounded-full bg-gold" />
+            <span className="font-serif text-lg font-medium text-dark">R. Kasaija &amp; Partners</span>
+          </div>
+          <button 
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Close menu"
+            className="w-11 h-11 min-h-[44px] min-w-[44px] bg-dark/5 hover:bg-dark/10 text-dark rounded-full flex items-center justify-center transition-colors cursor-pointer"
+          >
+            <X size={22} />
+          </button>
+        </div>
+
+        {/* Drawer Navigation List */}
+        <div className="flex-1 overflow-y-auto px-5 py-6 flex flex-col gap-2">
+          {navLinks.map((link) => {
+            const active = isActive(link.path);
+            return (
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                aria-current={active ? 'page' : undefined}
+                onClick={() => setIsMenuOpen(false)}
+                className={`font-serif text-lg py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-between min-h-[48px] ${
+                  active 
+                    ? 'bg-gold/20 text-dark font-semibold border-l-4 border-gold pl-4' 
+                    : 'text-dark/85 hover:bg-dark/5 hover:text-dark'
+                }`}
+              >
+                <span>{link.name}</span>
+                <ArrowRight size={16} className={`transition-transform ${active ? 'text-gold translate-x-1' : 'text-dark/30'}`} />
+              </Link>
+            );
+          })}
+
+          <div className="my-3 border-t border-gold/15" />
+
+          {/* Primary Action Buttons inside Drawer */}
+          <Link
+            to="/book"
+            onClick={() => setIsMenuOpen(false)}
+            className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 bg-gold text-dark font-semibold rounded-xl text-base shadow-md active:scale-95 transition-transform min-h-[48px]"
+          >
+            <Calendar size={18} />
+            <span>Book a Consultation</span>
+          </Link>
+
+          <button 
+            onClick={handleOpenChat}
+            className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 bg-dark text-cream font-medium rounded-xl text-base shadow-md active:scale-95 transition-transform cursor-pointer min-h-[48px] mt-2"
+          >
+            <Sparkles size={18} className="text-gold" />
+            <span>Ask Kasaija AI Assistant</span>
+          </button>
+        </div>
+
+        {/* Drawer Footer Contact Info */}
+        <div className="p-5 border-t border-gold/15 bg-light/80 text-xs text-dark/70 font-sans">
+          <div className="font-semibold text-dark mb-1">Kampala Chambers</div>
+          <div>Plot 75 Kampala Road, E-Tower Suite D-06</div>
+          <div className="mt-1 font-mono text-gold-mid font-semibold">+256 772 418 707 | +256 776 044 004</div>
+        </div>
       </div>
-    </nav>
+    </>
   );
 };
 
