@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, Phone, Mail, MapPin, CheckCircle2, ArrowUpRight, AlertCircle, Clock } from 'lucide-react';
 import { PRACTICE_AREAS, STAFF } from '../data/constants';
-import { apiFetch } from '../utils/api';
+import { submitAppointmentRequest } from '../utils/api';
 
 const Book = () => {
   const location = useLocation();
@@ -20,10 +20,11 @@ const Book = () => {
     lawyer: '',
     date: '',
     time: '',
-    message: ''
+    message: '',
+    honeypot: ''
   });
 
-  // Pre-fill practice area or lawyer from state if passed
+  // Pre-fill practice area or lawyer from state if passed from other pages (e.g. Advocate profile cards)
   useEffect(() => {
     if (location.state?.area) {
       setFormData(prev => ({ ...prev, area: location.state.area }));
@@ -49,23 +50,21 @@ const Book = () => {
       preferred_date: formData.date,
       preferred_time: formData.time,
       message: formData.message,
-      reference_id: generatedRef
+      reference_id: generatedRef,
+      honeypot: formData.honeypot
     };
 
     try {
-      const res = await apiFetch('/book', {
-        method: 'POST',
-        body: JSON.stringify(payload)
-      });
+      const res = await submitAppointmentRequest(payload);
       if (res && res.success) {
-        setReferenceId(generatedRef);
+        setReferenceId(res.refId || generatedRef);
         setSubmitted(true);
       } else {
-        setError(res?.error || 'Could not record appointment. Please call +256 772 418 707.');
+        setError(res?.error || 'We couldn\'t submit your appointment request right now. Please try again or contact us directly.');
       }
     } catch (err) {
       console.error('Booking submit error:', err);
-      setError(err.message || 'Connection error. Please call +256 772 418 707 directly.');
+      setError('We couldn\'t submit your request right now due to a network connection issue. Please try again or call +256 772 418 707.');
     } finally {
       setLoading(false);
     }
@@ -99,18 +98,20 @@ const Book = () => {
               Consultation Request Received
             </h2>
             
-            <p className="text-base sm:text-lg text-dark/80 leading-relaxed max-w-md mx-auto mb-8 font-sans">
-              Thank you, <strong>{formData.name}</strong>. Your consultation details have been submitted. Our legal team will review your matter and contact you at <strong>{formData.email}</strong> within one business day.
+            <p className="text-base sm:text-lg text-dark/90 leading-relaxed max-w-lg mx-auto mb-8 font-sans font-medium">
+              Your appointment request has been received. Our team will contact you to confirm availability.
             </p>
 
-            <div className="p-4 rounded-xl bg-white/60 border border-gold/20 text-left text-xs font-mono text-dark/70 mb-8 max-w-md mx-auto space-y-1">
+            <div className="p-4 rounded-xl bg-white/60 border border-gold/20 text-left text-xs font-mono text-dark/80 mb-8 max-w-md mx-auto space-y-1">
+              <div><strong>Client Name:</strong> {formData.name}</div>
+              <div><strong>Email Address:</strong> {formData.email}</div>
               <div><strong>Practice Area:</strong> {formData.area || 'General Legal Counsel'}</div>
-              <div><strong>Preferred Advocate:</strong> {formData.lawyer || 'Assigned Specialist'}</div>
-              <div><strong>Preferred Schedule:</strong> {formData.date || 'To be scheduled'} {formData.time}</div>
+              <div><strong>Requested Advocate:</strong> {formData.lawyer || 'Assigned Specialist'}</div>
+              <div><strong>Requested Schedule:</strong> {formData.date || 'Flexible Date'} {formData.time}</div>
             </div>
 
             <button 
-              onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', area: '', lawyer: '', date: '', time: '', message: '' }); }}
+              onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', area: '', lawyer: '', date: '', time: '', message: '', honeypot: '' }); }}
               className="btn-outline border-dark text-dark hover:bg-dark hover:text-cream text-xs"
             >
               Submit Another Booking Request
@@ -184,16 +185,40 @@ const Book = () => {
               </h2>
               
               {error && (
-                <div className="p-4 mb-6 rounded-xl bg-red-50 text-red-700 text-xs border border-red-200 flex items-center gap-2">
-                  <AlertCircle size={16} />
-                  <span>{error}</span>
+                <div className="p-4 mb-6 rounded-xl bg-red-50 text-red-700 text-xs border border-red-200 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 font-medium">
+                    <AlertCircle size={16} className="shrink-0" />
+                    <span>{error}</span>
+                  </div>
+                  <div className="mt-1 pt-2 border-t border-red-200/60 flex items-center gap-3 text-[11px]">
+                    <span>Or email us directly:</span>
+                    <a 
+                      href={`mailto:kasaijaandpartners@gmail.com?subject=${encodeURIComponent('Appointment Request: ' + (formData.name || 'Client'))}&body=${encodeURIComponent(formData.message || '')}`}
+                      className="underline font-semibold hover:text-red-900"
+                    >
+                      kasaijaandpartners@gmail.com
+                    </a>
+                  </div>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot field for bot protection */}
+                <input 
+                  type="text" 
+                  name="_honey" 
+                  tabIndex="-1" 
+                  autoComplete="off" 
+                  value={formData.honeypot} 
+                  onChange={e => setFormData({...formData, honeypot: e.target.value})} 
+                  className="hidden" 
+                  aria-hidden="true" 
+                />
+
                 <div>
-                  <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Full Name *</label>
+                  <label htmlFor="book-name" className="block text-xs font-mono uppercase text-dark/60 mb-1">Full Name *</label>
                   <input 
+                    id="book-name"
                     required 
                     placeholder="e.g. Counsel / Mr. John Mugisha" 
                     className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all"
@@ -204,8 +229,9 @@ const Book = () => {
                 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Email Address *</label>
+                    <label htmlFor="book-email" className="block text-xs font-mono uppercase text-dark/60 mb-1">Email Address *</label>
                     <input 
+                      id="book-email"
                       required 
                       type="email" 
                       placeholder="name@company.com" 
@@ -215,8 +241,9 @@ const Book = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Phone Number</label>
+                    <label htmlFor="book-phone" className="block text-xs font-mono uppercase text-dark/60 mb-1">Phone Number</label>
                     <input 
+                      id="book-phone"
                       placeholder="+256 700 000 000" 
                       className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all"
                       value={formData.phone}
@@ -227,8 +254,9 @@ const Book = () => {
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Practice Area</label>
+                    <label htmlFor="book-area" className="block text-xs font-mono uppercase text-dark/60 mb-1">Practice Area</label>
                     <select 
+                      id="book-area"
                       className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all cursor-pointer"
                       value={formData.area}
                       onChange={e => setFormData({...formData, area: e.target.value})}
@@ -238,8 +266,9 @@ const Book = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Preferred Advocate</label>
+                    <label htmlFor="book-lawyer" className="block text-xs font-mono uppercase text-dark/60 mb-1">Preferred Advocate</label>
                     <select 
+                      id="book-lawyer"
                       className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all cursor-pointer"
                       value={formData.lawyer}
                       onChange={e => setFormData({...formData, lawyer: e.target.value})}
@@ -252,8 +281,9 @@ const Book = () => {
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Preferred Date</label>
+                    <label htmlFor="book-date" className="block text-xs font-mono uppercase text-dark/60 mb-1">Preferred Date</label>
                     <input 
+                      id="book-date"
                       type="date" 
                       className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all cursor-pointer"
                       value={formData.date}
@@ -261,8 +291,9 @@ const Book = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Preferred Time</label>
+                    <label htmlFor="book-time" className="block text-xs font-mono uppercase text-dark/60 mb-1">Preferred Time</label>
                     <input 
+                      id="book-time"
                       type="time" 
                       className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all cursor-pointer"
                       value={formData.time}
@@ -272,8 +303,9 @@ const Book = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Matter Summary / Message</label>
+                  <label htmlFor="book-message" className="block text-xs font-mono uppercase text-dark/60 mb-1">Matter Summary / Message</label>
                   <textarea 
+                    id="book-message"
                     placeholder="Briefly describe the key facts or background of your legal matter…" 
                     rows="4" 
                     className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all resize-none"
@@ -285,7 +317,7 @@ const Book = () => {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full btn-primary justify-center py-4 text-sm mt-2 disabled:opacity-50"
+                  className="w-full btn-primary justify-center py-4 text-sm mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Submitting Request...' : 'Submit Consultation Request'}
                   <ArrowUpRight size={16} />

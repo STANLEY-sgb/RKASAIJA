@@ -12,10 +12,10 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
   ];
 
   const particles = [
-    { s: '2px', o: 0.5, d: '22s', delay: '0s', x1: '18px', y1: '-35px', x2: '-12px', y2: '-68px', x3: '8px', y3: '-90px', left: '12%', top: '35%' },
-    { s: '3px', o: 0.35, d: '18s', delay: '3s', x1: '-22px', y1: '-28px', x2: '15px', y2: '-55px', x3: '-8px', y3: '-85px', left: '28%', top: '55%' },
-    { s: '2px', o: 0.6, d: '25s', delay: '6s', x1: '12px', y1: '-42px', x2: '-18px', y2: '-70px', x3: '6px', y3: '-100px', left: '45%', top: '28%' },
-    { s: '4px', o: 0.25, d: '20s', delay: '1.5s', x1: '-15px', y1: '-30px', x2: '20px', y2: '-65px', x3: '-5px', y3: '-95px', left: '68%', top: '45%' },
+    { s: '2px', o: 0.4, d: '22s', delay: '0s', x1: '18px', y1: '-35px', x2: '-12px', y2: '-68px', x3: '8px', y3: '-90px', left: '12%', top: '25%' },
+    { s: '3px', o: 0.3, d: '18s', delay: '3s', x1: '-22px', y1: '-28px', x2: '15px', y2: '-55px', x3: '-8px', y3: '-85px', left: '28%', top: '45%' },
+    { s: '2px', o: 0.5, d: '25s', delay: '6s', x1: '12px', y1: '-42px', x2: '-18px', y2: '-70px', x3: '6px', y3: '-100px', left: '45%', top: '20%' },
+    { s: '4px', o: 0.2, d: '20s', delay: '1.5s', x1: '-15px', y1: '-30px', x2: '20px', y2: '-65px', x3: '-5px', y3: '-95px', left: '68%', top: '35%' },
   ];
 
   const maxims = [
@@ -25,13 +25,9 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
   ];
 
   return (
-    <section id="hero" className="relative min-h-[90vh] lg:min-h-screen bg-[#0A0502] overflow-hidden flex flex-col justify-center pt-24 pb-16">
-      {/* Dynamic Professional Advocate Portraits Hero Slideshow */}
-      <HeroSlideshow />
-
-
-      {/* Scales SVG Background Graphic */}
-      <div className="absolute right-[3%] top-1/2 -translate-y-1/2 opacity-[0.06] pointer-events-none z-[3] hidden md:block">
+    <section id="hero" className="relative min-h-[90vh] bg-[#0A0502] overflow-hidden flex flex-col justify-between pt-24 sm:pt-28 pb-6">
+      {/* Background Scales SVG Graphic */}
+      <div className="absolute right-[2%] top-1/3 -translate-y-1/2 opacity-[0.05] pointer-events-none z-[1] hidden md:block">
         <svg width="550" height="600" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="99" y="10" width="2" height="145" fill="#B8956A" />
           <circle cx="100" cy="10" r="5" fill="#B8956A" />
@@ -47,7 +43,7 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
         </svg>
       </div>
 
-      {/* Floating Particles */}
+      {/* Floating Ambient Particles */}
       {particles.map((p, i) => (
         <div 
           key={i} 
@@ -60,10 +56,10 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
         />
       ))}
 
-      {/* Main Hero Content */}
-      <div className="container-custom relative z-[4] my-auto">
+      {/* 1. Primary Text & Typography Zone */}
+      <div className="container-custom relative z-[3] mb-8 sm:mb-12">
         <motion.div 
-          className="flex items-center gap-3 mb-6 sm:mb-8"
+          className="flex items-center gap-3 mb-4 sm:mb-6"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -74,11 +70,11 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
         </motion.div>
 
         <h1 
-          className="font-serif leading-[0.96] tracking-tight text-[#FDFBF7] mb-8 font-medium" 
-          style={{ fontSize: "clamp(2.5rem, 7.5vw, 6.8rem)" }}
+          className="font-serif leading-[0.96] tracking-tight text-[#FDFBF7] mb-6 sm:mb-8 font-medium max-w-5xl" 
+          style={{ fontSize: "clamp(2.2rem, 6.5vw, 5.8rem)" }}
         >
           {headline.map((line, li) => (
-            <span key={li} className="block overflow-hidden py-[0.05em]">
+            <span key={li} className="block overflow-hidden py-[0.04em]">
               {line.words.map((word, wi) => (
                 <span key={wi} className="inline-block">
                   {word.split('').map((char, ci) => (
@@ -89,7 +85,7 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ 
                         duration: 0.7, 
-                        delay: 0.2 + (li * 0.15) + (wi * 0.08) + (ci * 0.015),
+                        delay: 0.15 + (li * 0.12) + (wi * 0.07) + (ci * 0.015),
                         ease: [0.22, 1, 0.36, 1]
                       }}
                       style={line.italic?.includes(wi) ? { fontStyle: "italic", color: "#B8956A" } : {}}
@@ -105,12 +101,12 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
         </h1>
 
         <motion.div 
-          className="grid lg:grid-cols-[1fr_auto] gap-8 items-end max-w-5xl"
+          className="grid lg:grid-cols-[1fr_auto] gap-6 sm:gap-8 items-end max-w-5xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.8 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
         >
-          <p className="text-[15px] sm:text-[17px] leading-relaxed text-[#FDFBF7]/75 max-w-[55ch]">
+          <p className="text-[14.5px] sm:text-[16.5px] leading-relaxed text-[#FDFBF7]/80 max-w-[58ch]">
             An indigenous Ugandan firm serving corporate entities, financial institutions, and individuals across banking, corporate, land, and dispute resolution — with a business-minded ADR approach, backed by <em className="accent !text-gold">ICAMEK</em> credentials and two decades of practice.
           </p>
 
@@ -123,13 +119,20 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
             </button>
           </div>
         </motion.div>
+      </div>
 
-        {/* Responsive Stats Banner */}
+      {/* 2. Horizontal Image Marquee Showcase Zone (No Overlap with Text) */}
+      <div className="relative z-[3] my-4 sm:my-6 w-full overflow-hidden">
+        <HeroSlideshow />
+      </div>
+
+      {/* 3. Responsive Stats Banner */}
+      <div className="container-custom relative z-[3] mt-6 sm:mt-8">
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 pt-8 mt-12 sm:mt-16 border-t border-gold/20"
-          initial={{ opacity: 0, y: 20 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pt-6 border-t border-gold/20"
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
         >
           {[
             { n: "20+", l: "Years of practice", sub: "Established counsel" },
@@ -138,24 +141,24 @@ const Hero = ({ onPracticeClick, onChatClick }) => {
             { n: "100%", l: "Ethical integrity", sub: "Professional standard" },
           ].map((s, i) => (
             <div key={i} className="group">
-              <div className="font-serif text-[clamp(2rem,4vw,3.5rem)] leading-tight text-[#FDFBF7] group-hover:text-gold transition-colors duration-300">
+              <div className="font-serif text-[clamp(1.75rem,3.5vw,3rem)] leading-tight text-[#FDFBF7] group-hover:text-gold transition-colors duration-300">
                 {s.n}
               </div>
-              <div className="text-[13px] font-medium text-[#FDFBF7]/80 mt-1">{s.l}</div>
-              <div className="font-mono text-[10px] tracking-widest uppercase opacity-40 text-[#FDFBF7] mt-0.5">{s.sub}</div>
+              <div className="text-[12px] sm:text-[13px] font-medium text-[#FDFBF7]/80 mt-0.5">{s.l}</div>
+              <div className="font-mono text-[9.5px] sm:text-[10px] tracking-widest uppercase opacity-50 text-[#FDFBF7] mt-0.5">{s.sub}</div>
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* Latin Maxims Marquee Strip at bottom */}
-      <div className="mt-10 h-[36px] overflow-hidden z-[4] pointer-events-none border-t border-gold/15 bg-black/40 backdrop-blur-sm flex items-center">
+      {/* 4. Latin Maxims Marquee Strip at Bottom */}
+      <div className="mt-8 h-[34px] overflow-hidden z-[3] pointer-events-none border-t border-gold/15 bg-black/40 backdrop-blur-sm flex items-center">
         <div className="flex whitespace-nowrap animate-marquee w-fit">
           {[...Array(2)].map((_, i) => (
             <React.Fragment key={i}>
               {maxims.map((m, j) => (
                 <span key={j} className="inline-flex items-center">
-                  <span className="font-mono text-[9.5px] tracking-widest uppercase text-gold/85 px-10 shrink-0">{m}</span>
+                  <span className="font-mono text-[9px] sm:text-[9.5px] tracking-widest uppercase text-gold/85 px-8 sm:px-10 shrink-0">{m}</span>
                   <span className="text-gold/30 shrink-0">✦</span>
                 </span>
               ))}

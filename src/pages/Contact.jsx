@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, CheckCircle2, ArrowUpRight, MessageCircle, Clock, Sparkles } from 'lucide-react';
+import { Phone, Mail, MapPin, CheckCircle2, ArrowUpRight, MessageCircle, Clock, Sparkles, AlertCircle } from 'lucide-react';
 import { PRACTICE_AREAS } from '../data/constants';
-import { apiFetch } from '../utils/api';
+import { submitContactForm } from '../utils/api';
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', area: '', message: ''
+    name: '', email: '', phone: '', area: '', message: '', honeypot: ''
   });
 
   const handleSubmit = async (e) => {
@@ -18,18 +18,15 @@ const Contact = () => {
     setError('');
     
     try {
-      const res = await apiFetch('/contact', {
-        method: 'POST',
-        body: JSON.stringify(formData)
-      });
+      const res = await submitContactForm(formData);
       if (res && res.success) {
         setSubmitted(true);
       } else {
-        setError(res?.error || 'Could not send enquiry. Please call +256 772 418 707.');
+        setError(res?.error || 'We couldn\'t send your message right now. Please try again or contact us directly.');
       }
     } catch (err) {
       console.error('Contact submit error:', err);
-      setError(err.message || 'Server connection error. Please call +256 772 418 707 directly.');
+      setError('We couldn\'t send your message right now due to a network issue. Please try again or contact us directly.');
     } finally {
       setLoading(false);
     }
@@ -82,10 +79,10 @@ const Contact = () => {
               Enquiry Received
             </h2>
             <p className="text-base sm:text-lg text-dark/80 leading-relaxed max-w-md mx-auto mb-8 font-sans">
-              Thank you for reaching out to R. Kasaija & Partners Advocates. An advocate will review your matter and respond within 1 business day.
+              Your message has been sent successfully. Our legal team will review your enquiry and get back to you as soon as possible.
             </p>
             <button 
-              onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', area: '', message: '' }); }}
+              onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', area: '', message: '', honeypot: '' }); }}
               className="btn-outline border-dark text-dark hover:bg-dark hover:text-cream text-xs"
             >
               Send Another Enquiry
@@ -182,6 +179,7 @@ const Contact = () => {
                   § Direct Enquiry Form
                 </div>
                 <button 
+                  type="button"
                   onClick={() => window.dispatchEvent(new CustomEvent('open-chat'))}
                   className="flex items-center gap-1.5 text-xs text-gold-mid hover:text-dark font-mono uppercase tracking-wider"
                 >
@@ -192,11 +190,42 @@ const Contact = () => {
               <h2 className="font-serif text-2xl sm:text-3xl mb-8 tracking-tight text-dark font-medium">
                 Send Us a Message
               </h2>
+
+              {error && (
+                <div className="p-4 mb-6 rounded-xl bg-red-50 text-red-700 text-xs border border-red-200 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 font-medium">
+                    <AlertCircle size={16} className="shrink-0" />
+                    <span>{error}</span>
+                  </div>
+                  <div className="mt-1 pt-2 border-t border-red-200/60 flex items-center gap-3 text-[11px]">
+                    <span>Or email us directly:</span>
+                    <a 
+                      href={`mailto:kasaijaandpartners@gmail.com?subject=${encodeURIComponent('Inquiry: ' + (formData.name || 'Client'))}&body=${encodeURIComponent(formData.message || '')}`}
+                      className="underline font-semibold hover:text-red-900"
+                    >
+                      kasaijaandpartners@gmail.com
+                    </a>
+                  </div>
+                </div>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot field for spam prevention */}
+                <input 
+                  type="text" 
+                  name="_honey" 
+                  tabIndex="-1" 
+                  autoComplete="off" 
+                  value={formData.honeypot} 
+                  onChange={e => setFormData({...formData, honeypot: e.target.value})} 
+                  className="hidden" 
+                  aria-hidden="true" 
+                />
+
                 <div>
-                  <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Full Name *</label>
+                  <label htmlFor="contact-name" className="block text-xs font-mono uppercase text-dark/60 mb-1">Full Name *</label>
                   <input 
+                    id="contact-name"
                     required 
                     placeholder="e.g. Counsel / Mr. John Mugisha" 
                     className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all"
@@ -207,8 +236,9 @@ const Contact = () => {
                 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Email Address *</label>
+                    <label htmlFor="contact-email" className="block text-xs font-mono uppercase text-dark/60 mb-1">Email Address *</label>
                     <input 
+                      id="contact-email"
                       required 
                       type="email" 
                       placeholder="name@company.com" 
@@ -218,8 +248,9 @@ const Contact = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Phone Number</label>
+                    <label htmlFor="contact-phone" className="block text-xs font-mono uppercase text-dark/60 mb-1">Phone Number</label>
                     <input 
+                      id="contact-phone"
                       placeholder="+256 700 000 000" 
                       className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all"
                       value={formData.phone}
@@ -229,8 +260,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Relevant Practice Area</label>
+                  <label htmlFor="contact-area" className="block text-xs font-mono uppercase text-dark/60 mb-1">Relevant Practice Area</label>
                   <select 
+                    id="contact-area"
                     className="w-full px-4 py-3.5 rounded-xl bg-cream/40 border border-gold/20 focus:border-gold-mid focus:bg-white outline-none text-sm transition-all cursor-pointer"
                     value={formData.area}
                     onChange={e => setFormData({...formData, area: e.target.value})}
@@ -241,8 +273,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase text-dark/60 mb-1">Enquiry Message *</label>
+                  <label htmlFor="contact-message" className="block text-xs font-mono uppercase text-dark/60 mb-1">Enquiry Message *</label>
                   <textarea 
+                    id="contact-message"
                     required
                     placeholder="Describe your question or matter in detail…" 
                     rows="5" 
@@ -255,7 +288,7 @@ const Contact = () => {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full btn-primary justify-center py-4 text-sm mt-2 disabled:opacity-50"
+                  className="w-full btn-primary justify-center py-4 text-sm mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Sending Enquiry...' : 'Submit Confidential Enquiry'}
                   <ArrowUpRight size={16} />

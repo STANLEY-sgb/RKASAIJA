@@ -57,7 +57,7 @@ const Team = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
               >
-                {/* Image Portrait Box with Bubble Morphing Reveal */}
+                {/* Image Portrait Box */}
                 <div className="relative aspect-[4/5] overflow-hidden bg-dark">
                   {/* Role Badge */}
                   <div className="absolute top-4 left-4 z-20">
@@ -66,21 +66,13 @@ const Team = () => {
                     </span>
                   </div>
 
-                  <motion.div 
-                    className="w-full h-full"
-                    initial={{ opacity: 0, scale: 0.85, clipPath: 'circle(20% at 50% 50%)' }}
-                    whileInView={{ opacity: 1, scale: 1, clipPath: 'circle(100% at 50% 50%)' }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: (i % 3) * 0.1 }}
-                  >
-                    <img 
-                      src={staffMember.photo} 
-                      alt={staffMember.name}
-                      loading="lazy" 
-                      onError={(e) => handleImageError(e, staffMember.fallback || IMAGES.patterns.remove)}
-                      className="w-full h-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </motion.div>
+                  <img 
+                    src={staffMember.photo} 
+                    alt={staffMember.name}
+                    loading="lazy" 
+                    onError={(e) => handleImageError(e, staffMember.fallback || IMAGES.patterns.remove)}
+                    className="w-full h-full object-cover object-[center_15%] transition-transform duration-500 group-hover:scale-103"
+                  />
                   
                   {/* Subtle Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent opacity-85 pointer-events-none" />

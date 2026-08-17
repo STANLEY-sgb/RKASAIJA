@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Users, Award, ShieldCheck } from 'lucide-react';
 import { IMAGES, handleImageError } from '../data/images';
 import { STAFF } from '../data/constants';
 
@@ -37,13 +36,13 @@ const TeamSectionShowcase = ({ isFullPage = false }) => {
           </p>
         </motion.div>
 
-        {/* Feature Display: Fluctuating Dual Team Group Photos (2s cycle) */}
+        {/* Feature Display: Group Banner */}
         <motion.div
           className="mb-20 rounded-[24px] sm:rounded-[32px] overflow-hidden bg-dark border border-gold/25 shadow-2xl relative group"
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
         >
           <TeamGroupBannerSlideshow />
         </motion.div>
@@ -53,31 +52,23 @@ const TeamSectionShowcase = ({ isFullPage = false }) => {
           {displayStaff.map((member, i) => (
             <motion.div
               key={i}
-              className="bg-white rounded-[20px] border border-gold/20 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group"
+              className="bg-white rounded-[20px] border border-gold/20 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col h-full group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              {/* Individual Portrait Container with Glass/Bubble Morphing Reveal */}
-              <div className="relative aspect-[4/5] bg-dark overflow-hidden group/portrait">
-                <motion.div 
-                  className="w-full h-full"
-                  initial={{ opacity: 0, scale: 0.85, clipPath: 'circle(20% at 50% 50%)' }}
-                  whileInView={{ opacity: 1, scale: 1, clipPath: 'circle(100% at 50% 50%)' }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: (i % 4) * 0.1 }}
-                >
-                  <img
-                    src={member.photo}
-                    alt={member.name}
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => handleImageError(e, member.fallback || IMAGES.patterns.remove)}
-                    className="w-full h-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
-                  />
-                </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent opacity-85 pointer-events-none" />
+              {/* Individual Portrait Container with Clean Zoom-Free Reveal */}
+              <div className="relative aspect-[4/5] bg-dark overflow-hidden group/portrait shrink-0">
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => handleImageError(e, member.fallback || IMAGES.patterns.remove)}
+                  className="w-full h-full object-cover object-[center_15%] transition-transform duration-500 group-hover/portrait:scale-102"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/25 to-transparent opacity-85 pointer-events-none" />
                 
                 <div className="absolute bottom-4 left-4 right-4 z-10">
                   <h4 className="font-serif text-xl sm:text-2xl text-cream font-medium tracking-tight">

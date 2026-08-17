@@ -39,7 +39,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {!isAdmin && <Navbar />}
       <main className={`flex-grow ${!isAdmin ? 'pb-16 lg:pb-0' : ''}`}>
         {children}
