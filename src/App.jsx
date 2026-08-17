@@ -57,7 +57,7 @@ const Layout = ({ children }) => {
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL || '/'}>
       <ScrollToTop />
       <Layout>
         <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center">Loading…</div>}>

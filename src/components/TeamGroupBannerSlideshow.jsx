@@ -6,11 +6,11 @@ import { Users } from 'lucide-react';
 const TeamGroupBannerSlideshow = ({ slides = IMAGES.teamGroupSlides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Automatically cycle between the 2 official group photos every 5 seconds (5000ms count)
+  // Automatically cycle between the 2 official group photos every 2 seconds (2000ms count)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 2000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -40,7 +40,7 @@ const TeamGroupBannerSlideshow = ({ slides = IMAGES.teamGroupSlides }) => {
             filter: 'blur(4px)'
           }}
           transition={{ 
-            duration: 0.65, 
+            duration: 0.5, 
             ease: [0.22, 1, 0.36, 1] 
           }}
           className="absolute inset-0 w-full h-full transform-gpu"

@@ -3,7 +3,19 @@
  * Structured asset paths under /assets/images/{logo,hero,about,practice,team,contact,backgrounds,icons}
  */
 
-export const IMAGES = {
+/**
+ * Helper to dynamically prefix asset paths with import.meta.env.BASE_URL
+ * Ensures images resolve correctly on both localhost ('/') and GitHub Pages ('/RKASAIJA/')
+ */
+export const getAssetUrl = (path) => {
+  if (!path || typeof path !== 'string') return path;
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  return baseUrl.endsWith('/') ? `${baseUrl}${cleanPath}` : `${baseUrl}/${cleanPath}`;
+};
+
+const RAW_IMAGES = {
   logo: {
     src: "/assets/images/logo/firm-logo.webp",
     fallback: "/assets/img/firm_logo.jpeg",
@@ -15,19 +27,19 @@ export const IMAGES = {
     alt: "R. Kasaija & Partners Advocates Legal Team",
   },
   // Requested sequence for the homepage slideshow:
-  // Slide 1 (TOP FIRST): FIRM TEAM PIC.png
+  // Slide 1 (TOP FIRST): FIRM TEAM PIC.png / firm-team-full.webp
   // Slide 2: Counsel Justine Junior
   // Slide 3: Counsel Oscar
   // Slide 4: Counsel Robert
   // Slide 5: Counsel Sharon
   // Slide 6: Counsel Chris
-  // Slide 7: law_firm_team.jpeg
+  // Slide 7: law_firm_team.jpeg / firm-team-landscape.webp
   heroSlides: [
     {
       id: "firm-team-main",
       src: "/assets/images/team/firm-team-full.webp",
       srcSm: "/assets/images/team/firm-team-full-sm.webp",
-      fallback: "/assets/images/team/FIRM  TEAM PIC.png",
+      fallback: "/assets/img/FIRM  TEAM PIC.png",
       fallbackOriginal: "/assets/img/FIRM  TEAM PIC.png",
       name: "R. Kasaija & Partners Advocates",
       title: "Official Firm Legal Team",
@@ -109,7 +121,7 @@ export const IMAGES = {
       id: "full-team",
       src: "/assets/images/team/firm-team-full.webp",
       srcMd: "/assets/images/team/firm-team-full-md.webp",
-      fallback: "/assets/images/team/FIRM  TEAM PIC.png",
+      fallback: "/assets/img/FIRM  TEAM PIC.png",
       fallbackOriginal: "/assets/img/FIRM  TEAM PIC.png",
       title: "United Counsel. Unwavering Integrity.",
       badge: "Official FIRM TEAM PIC.png",
@@ -119,7 +131,7 @@ export const IMAGES = {
       id: "landscape-team",
       src: "/assets/images/team/firm-team-landscape.webp",
       srcMd: "/assets/images/team/firm-team-landscape-md.webp",
-      fallback: "/assets/images/team/law_firm_team.jpeg",
+      fallback: "/assets/img/law_firm_team.jpeg",
       fallbackOriginal: "/assets/img/law_firm_team.jpeg",
       title: "Advocates, Commissioners & Legal Consultants",
       badge: "Official law_firm_team.jpeg",
@@ -149,37 +161,37 @@ export const IMAGES = {
   },
   advocates: {
     robert: {
-      src: "/assets/images/team-members/robert.webp",
+      src: "/assets/images/hero/counsel_robert.jpeg",
       fallback: "/assets/img/counsel_robert.jpeg",
       alt: "Robert Kasaija — Managing Partner",
     },
     sharon: {
-      src: "/assets/images/team-members/sharon.webp",
+      src: "/assets/images/hero/counsel_sharon.jpeg",
       fallback: "/assets/img/counsel_sharon.jpeg",
       alt: "Sharon Murungi — Partner & Head of Litigation",
     },
     joseph: {
-      src: "/assets/images/team-members/joseph.webp",
+      src: "/assets/images/hero/counsel_joseph.jpeg",
       fallback: "/assets/img/counsel_joseph.jpeg",
       alt: "Joseph Kwesiga — Partner",
     },
     justine: {
-      src: "/assets/images/team-members/justine_junior.webp",
+      src: "/assets/images/hero/counsel_justine_junior.jpeg",
       fallback: "/assets/img/counsel_justine_junior.jpeg",
       alt: "Justin Joseph Kasaija — Associate & Head of Administration",
     },
     chris: {
-      src: "/assets/images/team-members/chris.webp",
+      src: "/assets/images/hero/counsel_chris.jpeg",
       fallback: "/assets/img/counsel_chris.jpeg",
       alt: "Christopher Baluku — Associate",
     },
     fred: {
-      src: "/assets/images/team-members/fred.webp",
+      src: "/assets/images/hero/counsel_fred.jpeg",
       fallback: "/assets/img/counsel_fred.jpeg",
       alt: "Fred Asiimwe — Associate",
     },
     oscar: {
-      src: "/assets/images/team-members/oscar-card-padded.webp",
+      src: "/assets/images/hero/counsel_oscar.jpeg",
       fallback: "/assets/img/counsel_oscar.jpeg",
       alt: "Oscar Musiime — Associate",
     },
@@ -190,13 +202,34 @@ export const IMAGES = {
   }
 };
 
+const processObjectPaths = (target) => {
+  if (!target) return target;
+  if (typeof target === 'string') {
+    return (target.startsWith('/') || target.startsWith('assets/')) ? getAssetUrl(target) : target;
+  }
+  if (Array.isArray(target)) {
+    return target.map(processObjectPaths);
+  }
+  if (typeof target === 'object') {
+    const res = {};
+    for (const key of Object.keys(target)) {
+      res[key] = processObjectPaths(target[key]);
+    }
+    return res;
+  }
+  return target;
+};
+
+export const IMAGES = processObjectPaths(RAW_IMAGES);
+
 /**
  * Image onError helper to automatically swap broken image sources with fallback
  */
-export const handleImageError = (e, fallbackSrc = IMAGES.patterns.remove) => {
-  if (e.target && e.target.src !== fallbackSrc) {
+export const handleImageError = (e, fallbackSrc) => {
+  if (!e || !e.target) return;
+  const fallback = fallbackSrc ? getAssetUrl(fallbackSrc) : getAssetUrl('/assets/img/remove.png');
+  if (e.target.src !== fallback && e.target.currentSrc !== fallback) {
     e.target.onerror = null;
-    e.target.src = fallbackSrc;
+    e.target.src = fallback;
   }
 };
-

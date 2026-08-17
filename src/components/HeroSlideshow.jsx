@@ -22,12 +22,12 @@ const HeroSlideshow = ({ slides = IMAGES.heroSlides }) => {
     setCurrentIndex((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
-  // Slideshow auto-advance interval: 5 seconds display per slide
+  // Slideshow auto-advance interval: 2 seconds (2000ms) display per slide
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 2000);
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
@@ -100,8 +100,8 @@ const HeroSlideshow = ({ slides = IMAGES.heroSlides }) => {
             filter: 'blur(4px)'
           }}
           transition={{ 
-            duration: 0.9, 
-            ease: [0.22, 1, 0.36, 1], // Premium smooth morph cubic-bezier
+            duration: 0.5, 
+            ease: [0.22, 1, 0.36, 1], // Premium smooth morph cubic-bezier (500ms duration)
           }}
           className="absolute inset-0 w-full h-full transform-gpu"
           style={{ willChange: "transform, opacity, clip-path" }}
@@ -111,13 +111,13 @@ const HeroSlideshow = ({ slides = IMAGES.heroSlides }) => {
             className="absolute inset-0 pointer-events-none z-10 border-2 border-gold/40 shadow-[0_0_50px_rgba(184,149,106,0.35)] rounded-full opacity-0"
             initial={{ opacity: 0.9, scale: 0.4 }}
             animate={{ opacity: 0, scale: 1.3 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           />
 
           <motion.picture 
             className="w-full h-full block"
             animate={getSecondaryMotion(currentSlide.motionType)}
-            transition={{ duration: 5.1, ease: "linear" }}
+            transition={{ duration: 2.1, ease: "linear" }}
           >
             {currentSlide.srcSm && (
               <source media="(max-width: 640px)" srcSet={currentSlide.srcSm} />
