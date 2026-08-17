@@ -34,7 +34,7 @@ Hours: Mon–Fri, 8:00 AM – 5:00 PM EAT
 
 PRACTICE AREAS (12):
 1. Banking & Finance (Robert Kasaija)
-2. Corporate & Commercial (Justin Joseph Kasaija)
+2. Corporate & Commercial (Justine Joseph Kasaija)
 3. Debt Recovery (Sharon Murungi)
 4. Land & Conveyancing (Joseph Kwesiga)
 5. Intellectual Property (Sharon Murungi)
@@ -44,10 +44,10 @@ PRACTICE AREAS (12):
 9. Arbitration & ADR (Robert Kasaija — ICAMEK accredited)
 10. Revenue Law & Taxation (Robert Kasaija)
 11. Non-Profit & NGO Law (Joseph Kwesiga)
-12. Governance & Compliance (Justin Joseph Kasaija)
+12. Governance & Compliance (Justine Joseph Kasaija)
 
 ADVOCATES (7):
-Robert Kasaija (Managing Partner), Sharon Murungi (Partner & Head of Litigation), Joseph Kwesiga (Partner), Justin Joseph Kasaija (Associate), Christopher Baluku (Associate), Fred Asiimwe (Associate), Oscar Musiime (Associate).
+Robert Kasaija (Managing Partner), Sharon Murungi (Partner & Head of Litigation), Joseph Kwesiga (Partner), Justine Joseph Kasaija (Associate), Christopher Baluku (Associate), Fred Asiimwe (Associate), Oscar Musiime (Associate).
 
 RULES:
 - Answer naturally, helpfully, and concisely (2–4 short sentences).

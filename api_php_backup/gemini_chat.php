@@ -94,7 +94,7 @@ PRACTICE AREAS — FULL DESCRIPTIONS
 01. BANKING & FINANCE → Lead: Robert Kasaija (Managing Partner)
 We understand your insurance, banking, and financing needs. Our practice includes general insurance banking, structured finance, syndicated and general lending, asset and project finance, guarantees, derivatives, debentures, and charges. We have acted as counsel for numerous foreign and local investors, foreign donor agencies, and government bodies.
 
-02. CORPORATE & COMMERCIAL → Lead: Justin Joseph Kasaija (Associate)
+02. CORPORATE & COMMERCIAL → Lead: Justine Joseph Kasaija (Associate)
 We are your partners in achieving your commercial and investment goals. Our firm has served as in-house counsel and company secretaries for foreign and local clients, handling equity and contractual joint ventures, wholly owned foreign enterprises, holding companies, and financial and management agreements. Work includes mergers, acquisitions, foreign investment, and cross-border transactions.
 
 03. DEBT RECOVERY → Lead: Sharon Murungi (Head of Litigation)
@@ -124,7 +124,7 @@ We advise clients on varied tax issues with an emphasis on corporate matters inc
 11. NON-PROFIT & NGO → Lead: Joseph Kwesiga (Partner)
 We work extensively with NGOs — from formation through financing, performance monitoring, and general legal work. We also provide pro-bono legal services to the Uganda Christian Lawyers Fraternity and the Uganda Law Society. Work covers NGO Bureau registration, governance, compliance, and financing.
 
-12. GOVERNANCE & COMPLIANCE → Lead: Justin Joseph Kasaija (Associate)
+12. GOVERNANCE & COMPLIANCE → Lead: Justine Joseph Kasaija (Associate)
 We monitor developments in this rapidly evolving area and advise institutional and individual clients on regulatory obligations. We design and implement compliance programs to deter inadvertent and purposeful failures to heed laws and regulations.
 
 ═══════════════════════════════════════
@@ -148,7 +148,7 @@ Bio: Legal Officer and Head of Prosecutions at the National Forestry Authority. 
 Qualifications: LLB (Hons), Uganda Christian University (UCU); PGD Legal Practice, Law Development Centre (LDC).
 Memberships: Uganda Law Society (ULS), East Africa Law Society (EALS).
 
-• JUSTIN JOSEPH KASAIJA — Associate & Head of Administration
+• JUSTINE JOSEPH KASAIJA — Associate & Head of Administration
 Practice focus: Corporate Governance · Business Advisory · Compliance
 Bio: Advises national and multinational companies on business planning and risk mitigation. Board member of Sage Buyers, Black Market Entertainment, Inveseed, and Koisan Investments.
 Qualifications: LLB (Hons); LDC (Hons).
@@ -516,7 +516,7 @@ function getDemoResponse(string $q): string
 
     // ── Team size ──────────────────────────────────────────────────────────────
     if (preg_match('/how many (lawyer|advocate|partner|staff|attorney|people)/i', $q))
-        return "R. Kasaija & Partners Advocates has a team of 7 qualified advocates:\n\n• 3 Partners: Robert Kasaija (Managing Partner), Sharon Murungi (Head of Litigation), Joseph Kwesiga\n• 4 Associates: Justin Joseph Kasaija, Christopher Baluku, Fred Asiimwe, Oscar Musiime\n\nClick the \"Team\" tab to read full profiles. Would you like me to recommend the right advocate for your matter?";
+        return "R. Kasaija & Partners Advocates has a team of 7 qualified advocates:\n\n• 3 Partners: Robert Kasaija (Managing Partner), Sharon Murungi (Head of Litigation), Joseph Kwesiga\n• 4 Associates: Justine Joseph Kasaija, Christopher Baluku, Fred Asiimwe, Oscar Musiime\n\nClick the \"Team\" tab to read full profiles. Would you like me to recommend the right advocate for your matter?";
 
     // ── Greetings ──────────────────────────────────────────────────────────────
     if (preg_match('/^(hi|hello|hey|good\s+(morning|afternoon|evening|day)|howdy|greetings|salut|hola|welcome)\b/i', $q))
@@ -544,7 +544,7 @@ function getDemoResponse(string $q): string
 
     // ── Team / advocates / lawyers ────────────────────────────────────────────
     if (preg_match('/team|advocate|lawyer|partner|who are|staff|member|attorney/i', $q))
-        return "Our team of 7 advocates:\n\n👨‍⚖️ Robert Kasaija — Managing Partner\n20+ years experience. Commissioner for Oaths, Notary Public, ICAMEK arbitrator. Handles Banking, Corporate Finance, Criminal Law, Arbitration & Tax.\n\n👩‍⚖️ Sharon Murungi — Partner & Head of Litigation\nFormer HIJRA/UNHCR protection manager. Handles Debt Recovery, Family, Employment, Intellectual Property.\n\n👨‍⚖️ Joseph Kwesiga — Partner\nLegal Officer & Head of Prosecutions at National Forestry Authority. Handles Land, Conveyancing, Environment, NGOs.\n\n👨‍⚖️ Justin Joseph Kasaija — Associate & Head of Administration\nBoard member of Sage Buyers, Black Market Entertainment, Inveseed & Koisan Investments. Handles Corporate Governance & Compliance.\n\n👨‍⚖️ Christopher Baluku — Associate (Submissions & Litigation Research)\n👨‍⚖️ Fred Asiimwe — Associate (Civil Litigation & Research)\n👨‍⚖️ Oscar Musiime — Associate (Company Formation & Startup Advisory)\n\nClick the \"Team\" tab to read full bios and credentials.";
+        return "Our team of 7 advocates:\n\n👨‍Baker Robert Kasaija — Managing Partner\n20+ years experience. Commissioner for Oaths, Notary Public, ICAMEK arbitrator. Handles Banking, Corporate Finance, Criminal Law, Arbitration & Tax.\n\n👩‍⚖️ Sharon Murungi — Partner & Head of Litigation\nFormer HIJRA/UNHCR protection manager. Handles Debt Recovery, Family, Employment, Intellectual Property.\n\n👨‍⚖️ Joseph Kwesiga — Partner\nLegal Officer & Head of Prosecutions at National Forestry Authority. Handles Land, Conveyancing, Environment, NGOs.\n\n👨‍⚖️ Justine Joseph Kasaija — Associate & Head of Administration\nBoard member of Sage Buyers, Black Market Entertainment, Inveseed & Koisan Investments. Handles Corporate Governance & Compliance.\n\n👨‍⚖️ Christopher Baluku — Associate (Submissions & Litigation Research)\n👨‍⚖️ Fred Asiimwe — Associate (Civil Litigation & Research)\n👨‍⚖️ Oscar Musiime — Associate (Company Formation & Startup Advisory)\n\nClick the \"Team\" tab to read full bios and credentials.";
 
     // ── LAND LAW ──────────────────────────────────────────────────────────────
     if (preg_match('/kibanja|mailo|land|propert|title|caveat|mortgage|convey|transfer|evict|plot|tenure|freehold|leasehold|lc1|lc 1/i', $q)) {
@@ -573,8 +573,8 @@ function getDemoResponse(string $q): string
     // ── CORPORATE / BUSINESS ──────────────────────────────────────────────────
     if (preg_match('/company|business|corpor|invest|ursb|registr|startup|formation|merger|acqui|joint venture|sharehol/i', $q)) {
         if (preg_match('/register.*company|how.*start.*company|form.*company|company registration/i', $q))
-            return "To register a company in Uganda through URSB (Uganda Registration Services Bureau):\n\n1. Choose a company name and check availability on ursb.go.ug\n2. Prepare the Memorandum & Articles of Association\n3. Complete the company registration forms (Form 1, 3, 7)\n4. Pay the prescribed registration fees\n5. Receive your Certificate of Incorporation\n\nFor a private limited company, you need at least 1 director and 1 shareholder. The process typically takes 3–5 business days online.\n\nOur Associate Mr. Justin Joseph Kasaija and Mr. Oscar Musiime handle company formation. Click \"Book\" or call +256 772 418 707.\n\n📌 General information only. Consult our advocates for specific guidance.";
-        return "Corporate and commercial matters — company formation, URSB registration, mergers and acquisitions, joint ventures, foreign investment, and governance — are handled by Mr. Justin Joseph Kasaija and Mr. Oscar Musiime.\n\nClick \"Book\" or call +256 772 418 707 for immediate assistance.";
+            return "To register a company in Uganda through URSB (Uganda Registration Services Bureau):\n\n1. Choose a company name and check availability on ursb.go.ug\n2. Prepare the Memorandum & Articles of Association\n3. Complete the company registration forms (Form 1, 3, 7)\n4. Pay the prescribed registration fees\n5. Receive your Certificate of Incorporation\n\nFor a private limited company, you need at least 1 director and 1 shareholder. The process typically takes 3–5 business days online.\n\nOur Associate Justine Joseph Kasaija and Mr. Oscar Musiime handle company formation. Click \"Book\" or call +256 772 418 707.\n\n📌 General information only. Consult our advocates for specific guidance.";
+        return "Corporate and commercial matters — company formation, URSB registration, mergers and acquisitions, joint ventures, foreign investment, and governance — are handled by Justine Joseph Kasaija and Mr. Oscar Musiime.\n\nClick \"Book\" or call +256 772 418 707 for immediate assistance.";
     }
 
     // ── DEBT RECOVERY ─────────────────────────────────────────────────────────

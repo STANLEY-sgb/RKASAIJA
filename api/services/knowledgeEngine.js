@@ -31,9 +31,9 @@ export function getKnowledgeResponse(userQuery) {
   }
 
   // 3. LAWYERS / TEAM
-  if (/(lawyer|advocate|counsel|team|partner|associate|who works|staff|robert|sharon|joseph|justin|oscar|chris|fred)/i.test(query)) {
+  if (/(lawyer|advocate|counsel|team|partner|associate|who works|staff|robert|sharon|joseph|justine|justin|oscar|chris|fred)/i.test(query)) {
     return {
-      text: `Our firm features 7 experienced Ugandan advocates:\n\n• Robert Kasaija — Managing Partner (ICAMEK Arbitrator, Corporate & Finance)\n• Sharon Murungi — Partner & Head of Litigation (Commercial, Labour, Family & IP)\n• Joseph Kwesiga — Partner (Land, Environment, Procurement & NGO)\n• Justin Joseph Kasaija — Associate & Head of Administration (Corporate Governance)\n• Oscar Musiime — Associate (Corporate, Commercial & Land)\n• Christopher Baluku — Associate (Submissions & Pleadings)\n• Fred Asiimwe — Associate (Civil Litigation)`,
+      text: `Our firm features 7 experienced Ugandan advocates:\n\n• Robert Kasaija — Managing Partner (ICAMEK Arbitrator, Corporate & Finance)\n• Sharon Murungi — Partner & Head of Litigation (Commercial, Labour, Family & IP)\n• Joseph Kwesiga — Partner (Land, Environment, Procurement & NGO)\n• Justine Joseph Kasaija — Associate & Head of Administration (Corporate Governance)\n• Oscar Musiime — Associate (Corporate, Commercial & Land)\n• Christopher Baluku — Associate (Submissions & Pleadings)\n• Fred Asiimwe — Associate (Civil Litigation)`,
       actions: [
         { label: "View Our Team", path: "/team" },
         { label: "Book Consultation", path: "/book" }

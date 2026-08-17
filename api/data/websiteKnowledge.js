@@ -21,7 +21,7 @@ export const WEBSITE_KNOWLEDGE = {
   
   practiceAreas: [
     { id: "banking", name: "Banking & Finance", desc: "Structured finance, syndicated lending, e-banking, insurance claims, debentures, and project financing across East Africa.", lawyer: "Robert Kasaija", path: "/practice" },
-    { id: "corporate", name: "Corporate & Commercial", desc: "Mergers, acquisitions, foreign investment, company secretarial work, joint ventures, and URSB business registration.", lawyer: "Justin Joseph Kasaija", path: "/practice" },
+    { id: "corporate", name: "Corporate & Commercial", desc: "Mergers, acquisitions, foreign investment, company secretarial work, joint ventures, and URSB business registration.", lawyer: "Justine Joseph Kasaija", path: "/practice" },
     { id: "debt", name: "Debt Recovery", desc: "Substantial debt recovery record for financial institutions, demand letters, negotiation, civil suits, attachment, and garnishment.", lawyer: "Sharon Murungi", path: "/practice" },
     { id: "land", name: "Land & Conveyancing", desc: "Title searches, mailo/freehold land transfers, mortgages, caveats, due diligence, and property dispute resolution.", lawyer: "Joseph Kwesiga", path: "/practice" },
     { id: "ip", name: "Intellectual Property", desc: "Trademark & patent registration, IP licensing, enforcement, and landmark predatory pricing litigation in Uganda.", lawyer: "Sharon Murungi", path: "/practice" },
@@ -31,14 +31,14 @@ export const WEBSITE_KNOWLEDGE = {
     { id: "adr", name: "Arbitration & ADR", desc: "ICAMEK-accredited arbitration, commercial mediation, and negotiation to save clients time and litigation costs.", lawyer: "Robert Kasaija", path: "/practice" },
     { id: "tax", name: "Revenue Law & Taxation", desc: "Corporate tax planning, VAT, PAYE, withholding tax, tax reorganization, and URA compliance.", lawyer: "Robert Kasaija", path: "/practice" },
     { id: "ngo", name: "Non-Profit & NGO", desc: "NGO Bureau registration, governance, compliance, financing, and pro-bono counsel to Uganda Christian Lawyers Fraternity.", lawyer: "Joseph Kwesiga", path: "/practice" },
-    { id: "compliance", name: "Governance & Compliance", desc: "Designing regulatory compliance programs, institutional risk deterrence, and corporate governance audits.", lawyer: "Justin Joseph Kasaija", path: "/practice" }
+    { id: "compliance", name: "Governance & Compliance", desc: "Designing regulatory compliance programs, institutional risk deterrence, and corporate governance audits.", lawyer: "Justine Joseph Kasaija", path: "/practice" }
   ],
 
   team: [
     { name: "Robert Kasaija", role: "Managing Partner", focus: "Corporate Finance, Real Estate, Arbitration, Litigation", bio: "Over 20 years in practice. Commissioner for Oaths, Notary Public, ICAMEK arbitrator. Represents Shengli Engineering and foreign investor entities.", path: "/team" },
     { name: "Sharon Murungi", role: "Partner — Head of Litigation", focus: "Commercial, Labour, Tax, Arbitration, Family Law, IP", bio: "Head of Litigation. Former UNHCR/HIJRA protection manager and legal aid provider.", path: "/team" },
     { name: "Joseph Kwesiga", role: "Partner", focus: "Environmental, Land, Procurement, Insurance, NGO", bio: "Former Legal Officer and Head of Prosecutions at National Forestry Authority.", path: "/team" },
-    { name: "Justin Joseph Kasaija", role: "Associate — Head of Administration", focus: "Corporate Governance & Business Advisory", bio: "Advises national and multinational companies on business risk and governance.", path: "/team" },
+    { name: "Justine Joseph Kasaija", role: "Associate — Head of Administration", focus: "Corporate Governance & Business Advisory", bio: "Advises national and multinational companies on business risk and governance.", path: "/team" },
     { name: "Christopher Baluku", role: "Associate", focus: "Submissions, Pleadings & Legal Research", bio: "Grounded in legal research, submissions, and court pleadings.", path: "/team" },
     { name: "Fred Asiimwe", role: "Associate", focus: "Civil Litigation & Case Research", bio: "Extensive civil litigation and court filing experience.", path: "/team" },
     { name: "Oscar Musiime", role: "Associate", focus: "Corporate & Commercial, IP, Family Law, Land", bio: "Advocate of the High Court of Uganda specializing in client-centered legal practice.", path: "/team" }

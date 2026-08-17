@@ -85,7 +85,7 @@ PRACTICE AREAS — FULL DESCRIPTIONS
 01. BANKING & FINANCE → Robert Kasaija (Managing Partner)
 General insurance banking, structured finance, syndicated and general lending, asset and project finance, guarantees, derivatives, debentures, and charges. Counsel for foreign/local investors, donor agencies, and government bodies.
 
-02. CORPORATE & COMMERCIAL → Justin Joseph Kasaija (Associate)
+02. CORPORATE & COMMERCIAL → Justine Joseph Kasaija (Associate)
 In-house counsel and company secretaries for foreign/local clients. Equity and contractual joint ventures, wholly owned foreign enterprises, holding companies, financial and management agreements. Mergers, acquisitions, foreign investment, cross-border transactions.
 
 03. DEBT RECOVERY → Sharon Murungi (Head of Litigation)
@@ -115,7 +115,7 @@ Corporate tax advisory, takeovers, mergers, reorganisations, financing, privatis
 11. NON-PROFIT & NGO → Joseph Kwesiga (Partner)
 NGO formation, NGO Bureau registration, financing, performance monitoring, governance, compliance. Pro-bono partner of Uganda Christian Lawyers Fraternity and Uganda Law Society.
 
-12. GOVERNANCE & COMPLIANCE → Justin Joseph Kasaija (Associate)
+12. GOVERNANCE & COMPLIANCE → Justine Joseph Kasaija (Associate)
 Regulatory advisory, compliance programme design and implementation, institutional and individual regulatory obligations.
 
 ═══════════════════════════════════════
@@ -139,7 +139,7 @@ Bio: Legal Officer and Head of Prosecutions at National Forestry Authority. Deep
 Qualifications: LLB (Hons) UCU; PGD Legal Practice, LDC.
 Memberships: ULS, EALS.
 
-JUSTIN JOSEPH KASAIJA — Associate & Head of Administration
+JUSTINE JOSEPH KASAIJA — Associate & Head of Administration
 Focus: Corporate Governance · Business Advisory · Compliance
 Bio: Advises national and multinational companies on business planning and risk mitigation. Board member of Sage Buyers, Black Market Entertainment, Inveseed, and Koisan Investments.
 Qualifications: LLB (Hons); LDC (Hons).
@@ -382,8 +382,8 @@ function detectImages(string $question, string $response): array {
          'src' => $base . 'counsel_sharon.jpeg', 'alt' => 'Sharon Murungi', 'caption' => 'Sharon Murungi — Partner & Head of Litigation'],
         ['match' => ['joseph kwesiga', 'kwesiga', 'joseph'],
          'src' => $base . 'counsel_joseph.jpeg', 'alt' => 'Joseph Kwesiga', 'caption' => 'Joseph Kwesiga — Partner'],
-        ['match' => ['justin', 'head of administration'],
-         'src' => $base . 'counsel_justine_junior.jpeg', 'alt' => 'Justin Joseph Kasaija', 'caption' => 'Justin Joseph Kasaija — Associate'],
+        ['match' => ['justine', 'justin', 'head of administration'],
+         'src' => $base . 'counsel_justine_junior.jpeg', 'alt' => 'Justine Joseph Kasaija', 'caption' => 'Justine Joseph Kasaija — Associate'],
         ['match' => ['christopher', 'baluku', 'chris'],
          'src' => $base . 'counsel_chris.jpeg', 'alt' => 'Christopher Baluku', 'caption' => 'Christopher Baluku — Associate'],
         ['match' => ['fred', 'asiimwe'],
@@ -513,7 +513,7 @@ function aiDemoResponse(string $q): string {
 
     // How many lawyers / team size
     if (preg_match('/how many (lawyer|advocate|partner|staff|attorney|people)/i', $q))
-        return "R. Kasaija & Partners Advocates has a team of 7 qualified advocates:\n\n• 3 Partners: Robert Kasaija (Managing Partner), Sharon Murungi (Head of Litigation), Joseph Kwesiga\n• 4 Associates: Justin Joseph Kasaija, Christopher Baluku, Fred Asiimwe, Oscar Musiime\n\nClick the \"Team\" tab to read full profiles. Would you like me to recommend the right advocate for your matter?";
+        return "R. Kasaija & Partners Advocates has a team of 7 qualified advocates:\n\n• 3 Partners: Robert Kasaija (Managing Partner), Sharon Murungi (Head of Litigation), Joseph Kwesiga\n• 4 Associates: Justine Joseph Kasaija, Christopher Baluku, Fred Asiimwe, Oscar Musiime\n\nClick the \"Team\" tab to read full profiles. Would you like me to recommend the right advocate for your matter?";
 
     // Greetings
     if (preg_match('/^(hi|hello|hey|good\s+(morning|afternoon|evening|day)|howdy|greetings|welcome)\b/i', $q))
@@ -540,8 +540,8 @@ function aiDemoResponse(string $q): string {
         return "R. Kasaija & Partners Advocates is a full-service indigenous firm offering expert legal services across 12 practice areas:\n\n1. Banking & Finance\n2. Corporate & Commercial\n3. Debt Recovery\n4. Land & Conveyancing\n5. Intellectual Property\n6. Family & Probate\n7. Employment & Labour\n8. Criminal Law\n9. Arbitration & ADR\n10. Revenue Law & Taxation\n11. Non-Profit & NGO\n12. Governance & Compliance\n\nWe are also Advocates, Commissioners for Oaths, Notary Public, Trademark & Patent Agents, Company Secretaries, Receivers, Liquidators, and Debt Collectors.\n\nClick \"Practice\" in the menu to learn more, or describe your issue and I'll connect you with the right advocate.";
 
     // Team / specific person
-    if (preg_match('/team|advocate|lawyer|partner|who (are|is)|staff|member|attorney|robert|sharon|joseph|justin|christopher|baluku|fred|oscar|kasaija|murungi|kwesiga|asiimwe|musiime/i', $q))
-        return "Our team of 7 advocates:\n\n👨‍⚖️ Robert Kasaija — Managing Partner\n20+ years experience. Commissioner for Oaths, Notary Public, ICAMEK arbitrator.\nHandles: Banking, Corporate Finance, Criminal Law, Arbitration & Taxation.\n\n👩‍⚖️ Sharon Murungi — Partner & Head of Litigation\nFormer HIJRA/UNHCR protection manager. Uganda's landmark IP case.\nHandles: Debt Recovery, Family, Employment, Intellectual Property.\n\n👨‍⚖️ Joseph Kwesiga — Partner\nLegal Officer & Head of Prosecutions, National Forestry Authority.\nHandles: Land, Conveyancing, Environment, NGOs.\n\n👨‍⚖️ Justin Joseph Kasaija — Associate & Head of Administration\nBoard member: Sage Buyers, Black Market Entertainment, Inveseed, Koisan Investments.\nHandles: Corporate Governance & Compliance.\n\n👨‍⚖️ Christopher Baluku — Associate (Submissions & Research)\n👨‍⚖️ Fred Asiimwe — Associate (Civil Litigation & Research)\n👨‍⚖️ Oscar Musiime — Associate (Company Formation & Startup Advisory)\n\nClick the \"Team\" tab to see full profiles and credentials.";
+    if (preg_match('/team|advocate|lawyer|partner|who (are|is)|staff|member|attorney|robert|sharon|joseph|justine|justin|christopher|baluku|fred|oscar|kasaija|murungi|kwesiga|asiimwe|musiime/i', $q))
+        return "Our team of 7 advocates:\n\n👨‍⚖️ Robert Kasaija — Managing Partner\n20+ years experience. Commissioner for Oaths, Notary Public, ICAMEK arbitrator.\nHandles: Banking, Corporate Finance, Criminal Law, Arbitration & Taxation.\n\n👩‍⚖️ Sharon Murungi — Partner & Head of Litigation\nFormer HIJRA/UNHCR protection manager. Uganda's landmark IP case.\nHandles: Debt Recovery, Family, Employment, Intellectual Property.\n\n👨‍⚖️ Joseph Kwesiga — Partner\nLegal Officer & Head of Prosecutions, National Forestry Authority.\nHandles: Land, Conveyancing, Environment, NGOs.\n\n👨‍⚖️ Justine Joseph Kasaija — Associate & Head of Administration\nBoard member: Sage Buyers, Black Market Entertainment, Inveseed, Koisan Investments.\nHandles: Corporate Governance & Compliance.\n\n👨‍⚖️ Christopher Baluku — Associate (Submissions & Research)\n👨‍⚖️ Fred Asiimwe — Associate (Civil Litigation & Research)\n👨‍⚖️ Oscar Musiime — Associate (Company Formation & Startup Advisory)\n\nClick the \"Team\" tab to see full profiles and credentials.";
 
     // LAND LAW
     if (preg_match('/kibanja|mailo|land|propert|title|caveat|mortgage|convey|transfer|evict|plot|tenure|freehold|leasehold|lc1|lc 1/i', $q)) {
@@ -570,8 +570,8 @@ function aiDemoResponse(string $q): string {
     // CORPORATE / BUSINESS
     if (preg_match('/company|business|corpor|invest|ursb|registr|startup|formation|merger|acqui|joint venture|sharehol/i', $q)) {
         if (preg_match('/register.*company|how.*start.*company|company registration/i', $q))
-            return "To register a company in Uganda through URSB:\n\n1. Choose a company name and check availability on ursb.go.ug\n2. Prepare Memorandum & Articles of Association\n3. Complete registration forms (Form 1, 3, 7)\n4. Pay the prescribed registration fees\n5. Receive your Certificate of Incorporation\n\nFor a private limited company, you need at least 1 director and 1 shareholder. The process typically takes 3–5 business days online.\n\nJustin Joseph Kasaija and Oscar Musiime handle company formation. Click \"Book\" or call +256 772 418 707.\n\n📌 General information only.";
-        return "Corporate and commercial matters — company formation, URSB registration, mergers and acquisitions, joint ventures, foreign investment, and governance — are handled by Justin Joseph Kasaija and Oscar Musiime.\n\nClick \"Book\" or call +256 772 418 707 for immediate assistance.";
+            return "To register a company in Uganda through URSB:\n\n1. Choose a company name and check availability on ursb.go.ug\n2. Prepare Memorandum & Articles of Association\n3. Complete registration forms (Form 1, 3, 7)\n4. Pay the prescribed registration fees\n5. Receive your Certificate of Incorporation\n\nFor a private limited company, you need at least 1 director and 1 shareholder. The process typically takes 3–5 business days online.\n\nJustine Joseph Kasaija and Oscar Musiime handle company formation. Click \"Book\" or call +256 772 418 707.\n\n📌 General information only.";
+        return "Corporate and commercial matters — company formation, URSB registration, mergers and acquisitions, joint ventures, foreign investment, and governance — are handled by Justine Joseph Kasaija and Oscar Musiime.\n\nClick \"Book\" or call +256 772 418 707 for immediate assistance.";
     }
 
     // DEBT RECOVERY

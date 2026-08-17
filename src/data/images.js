@@ -28,7 +28,7 @@ const RAW_IMAGES = {
   },
   // Requested sequence for the homepage slideshow:
   // Slide 1 (TOP FIRST): FIRM TEAM PIC.png / firm-team-full.webp
-  // Slide 2: Counsel Justine Junior
+  // Slide 2: Counsel Justine Joseph Kasaija
   // Slide 3: Counsel Oscar
   // Slide 4: Counsel Robert
   // Slide 5: Counsel Sharon
@@ -53,9 +53,9 @@ const RAW_IMAGES = {
       src: "/assets/images/hero/justine_junior.webp",
       srcSm: "/assets/images/hero/justine_junior-sm.webp",
       fallback: "/assets/img/counsel_justine_junior.jpeg",
-      name: "Counsel Justine Junior",
+      name: "Counsel Justine Joseph Kasaija",
       title: "Associate & Head of Administration",
-      alt: "Counsel Justin Joseph Kasaija — Associate & Head of Administration",
+      alt: "Counsel Justine Joseph Kasaija — Associate & Head of Administration",
       objectPosition: "center 20%",
       motionType: "zoomIn",
     },
@@ -178,7 +178,7 @@ const RAW_IMAGES = {
     justine: {
       src: "/assets/images/hero/counsel_justine_junior.jpeg",
       fallback: "/assets/img/counsel_justine_junior.jpeg",
-      alt: "Justin Joseph Kasaija — Associate & Head of Administration",
+      alt: "Justine Joseph Kasaija — Associate & Head of Administration",
     },
     chris: {
       src: "/assets/images/hero/counsel_chris.jpeg",
